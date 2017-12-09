@@ -27,7 +27,7 @@ public:
 		}
 	}
 
-	Value get(const Key &key) {
+	Value get(const Key &key) const {
 		Node *curPos = searchNode(getBucket(key), key);
 		if (curPos != nullptr)
 			return curPos->val;
@@ -37,19 +37,6 @@ public:
 	bool contains(const Key &key) const {
 		return searchNode(getBucket(key), key) != nullptr;
 	}
-
-	// void debugPrint() {
-	// 	for (unsigned int i = 0; i < total_buckets; ++i) {
-	// 		Node *cur = buckets[i];
-	// 		std::cout << i << "\t:";
-	// 		while (cur) {
-	// 			std::cout << cur->key << "," << cur->val << "--";
-	// 			cur = cur->next;
-	// 		}
-	// 		std::cout << std::endl;
-	// 	}
-	// 	std::cout << "------------------------------------------\n\n";
-	// }
 
 	void erase(const Key &key) {
 		size_t bucket = getBucket(key);
@@ -66,11 +53,11 @@ public:
 		}
 	}
 
-	size_t capacity() {
+	size_t capacity() const {
 		return total_buckets;
 	}
 
-	size_t size() {
+	size_t size() const {
 		return total_elements;
 	}
 
@@ -80,6 +67,19 @@ public:
 		}
 		delete[] buckets;
 	}
+
+	// void debugPrint() {
+	// 	for (unsigned int i = 0; i < total_buckets; ++i) {
+	// 		Node *cur = buckets[i];
+	// 		std::cout << i << "\t:";
+	// 		while (cur) {
+	// 			std::cout << cur->key << "," << cur->val << "--";
+	// 			cur = cur->next;
+	// 		}
+	// 		std::cout << std::endl;
+	// 	}
+	// 	std::cout << "------------------------------------------\n\n";
+	// }
 
 private:
 	struct Node {
